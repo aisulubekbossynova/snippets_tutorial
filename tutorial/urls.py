@@ -16,15 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import include
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls
+
+API_TITLE = 'Pastebin API'
+API_DESCRIPTION = 'A Web API for creating and viewing highlighted code snippets.'
+schema_view = get_schema_view(title=API_TITLE)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('snippets.urls')),
-
-]
-
-urlpatterns += [
+    path('schema/', schema_view),
     path('api-auth/', include('rest_framework.urls')),
+
 ]
 
 #The 'api-auth/' part of pattern can actually be whatever URL you want to use.

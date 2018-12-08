@@ -32,7 +32,9 @@ from django.contrib.auth.models import User
 class SnippetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Snippet
-        fields = ('id', 'title', 'code', 'linenos', 'language', 'style')
+        fields = ('id', 'title', 'code', 'linenos', 'language', 'style','owner')
+        owner = serializers.ReadOnlyField(source='owner.username')
+#The source argument controls which attribute is used to populate a field, and can point at any attribute on the serialized instance.
 
 class UserSerializer(serializers.ModelSerializer):
     snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
